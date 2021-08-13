@@ -18,7 +18,9 @@ In this tutorial we are going to discuss the one more basic data structure in **
 
 # Lists
 
-Lists are **R**'s Swiss knife for data storage and I like to think it as a "meta" data storage facility. In formal terms, a list is an object that can *contain* other objects inside it. The idea is it to serve as an inventory of data, regarding a project or a specific data analysis. 
+Lists are **R**'s Swiss knife for data storage and I like to think it as a "meta" data storage facility. In formal terms, a list is an object that can *contain* other objects inside it. The idea is it to serve as an inventory of data, regarding a project or a specific data analysis. The image bellow compares the types of elements we have discussed so far:
+
+![Some data types in R| source: https://mgimond.github.io/ES218/Week02a.html](./images/data_structures_R.png)
 
 Let us see it in practical terms. Firstly, Let us create a data frame:
 
@@ -27,11 +29,11 @@ Let us see it in practical terms. Firstly, Let us create a data frame:
 names <- c('Astolfo', "Eleutério", "Alarico", "Genésia","Gioconda","Ondina")
 birthdays <-as.Date(c("1907-06-22","1987-07-12","1941-11-10",
                       "1940-11-15","1910-07-03","1982-06-21"))
-gender <-c("male","male",'male', "female","female","female")
-life.status <-c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE)
-possible.age <-c(113,33, 79,80,110,38)
-my.data.frame <-data.frame(names,birthdays,gender,life.status,possible.age)
-colnames(my.data.frame) <-c("Names", 'Birthdays',"Gender","Life.Status",
+gender <- c("male","male",'male', "female","female","female")
+life.status <- c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE)
+possible.age <- c(113,33, 79,80,110,38)
+my.data.frame <- data.frame(names,birthdays,gender,life.status,possible.age)
+colnames(my.data.frame) <- c("Names", 'Birthdays',"Gender","Life.Status",
                             "Possible.Age")
 ```
 
@@ -84,7 +86,7 @@ My.list
 
 Simple, we delete it as a column in a data frame:
 ```{r}
-My.list[6]<-NULL
+My.list[6] <- NULL
 My.list
 ```
 
@@ -93,7 +95,7 @@ My.list
 We can pull an element and send it to another variable:
 
 ```{r}
-My.Matrix3<-My.list[["My.Matrix2"]]
+My.Matrix3 <- My.list[["My.Matrix2"]]
 My.Matrix3
 ```
 
