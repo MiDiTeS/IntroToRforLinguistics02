@@ -1,8 +1,9 @@
+# Basic concepts with R (part 4)
+
 Rodrigo Esteves de Lima Lopes \
 *Campinas State University* \
 [rll307@unicamp.br](mailto:rll307@unicamp.br)
 
-# Basic concepts with R (part 4)
 
 # Introduction
 
@@ -10,7 +11,12 @@ In this tutorial we will work with data frames. On my little experience using R 
 
 # Data Frames
 
-Data frames are matrices like two-dimensional rectangular structures. However, they bring an important difference: data frame columns do not need to be all of the same data kind. In other words, we cam mix up, numbers, characters, logical, date in a complex table. Naturally there are restrictions, since such a freedom concerns only the kind of data represented within each column. for example, in the table that follows:
+Data frames are matrices like two-dimensional rectangular structures. However, they bring an important difference: data frame columns do not need to be all of the same data kind. In other words, we cam mix up, numbers, characters, logical, date in a complex table. A example would be:
+
+![A Data Frame in R | source: https://www.guru99.com/r-data-frames.html](./images/dataframe.png)
+
+
+Naturally there are restrictions, since such a freedom concerns only the kind of data represented within each column. for example, in the table that follows:
 
 
 
@@ -35,13 +41,13 @@ Let us build this data frame:
 
 ```r
 names <- c('Astolfo', "Eleutério", "Alarico", "Genésia","Gioconda","Ondina")
-birthdays <-as.Date(c("1907-06-22","1987-07-12","1941-11-10",
+birthdays <- as.Date(c("1907-06-22","1987-07-12","1941-11-10",
                       "1940-11-15","1910-07-03","1982-06-21"))
-gender <-c("male","male",'male', "female","female","female")
-life.status <-c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE)
-possible.age <-c(113,33, 79,80,110,38)
-my.data.frame <-data.frame(names,birthdays,gender,life.status,possible.age)
-colnames(my.data.frame) <-c("Names", 'Birthdays',"Gender","Life.Status",
+gender <- c("male","male",'male', "female","female","female")
+life.status <- c(FALSE,TRUE,FALSE,TRUE,FALSE,TRUE)
+possible.age <- c(113,33, 79,80,110,38)
+my.data.frame <- data.frame(names,birthdays,gender,life.status,possible.age)
+colnames(my.data.frame) <- c("Names", 'Birthdays',"Gender","Life.Status",
                             "Possible.Age")
 my.data.frame
 ```
@@ -252,7 +258,7 @@ Accessing a couple of columns or rows
 
 
 ```r
-gender.and.age <-my.data.frame[,c(1,3,5)]
+gender.and.age <- my.data.frame[,c(1,3,5)]
 gender.and.age 
 ```
 
@@ -307,7 +313,7 @@ If we have a vector, we can easily make it a new column using the dollar sign (*
 
 
 ```r
-place.of.birth <-rep("SP",6)
+place.of.birth <- rep("SP",6)
 place.of.birth 
 ```
 
@@ -338,14 +344,14 @@ Actually it is technically not possible to add new rows. What I have to do is to
 ```r
 new.name <- "Esmeralda"
 new.Birthday <- as.Date('1930-10-24')
-new.gender <-'female'
+new.gender <- 'female'
 new.LS <- TRUE
 New.age <- 90
 newBP <- "RJ"
 my.data.frame.2 <- data.frame(new.name,new.Birthday,
                               new.gender,new.LS,New.age,
                               newBP)
-colnames(my.data.frame.2) <-c("Names", 'Birthdays',"Gender","Life.Status",
+colnames(my.data.frame.2) <- c("Names", 'Birthdays',"Gender","Life.Status",
                             "Possible.Age","Birthplace")
 my.data.frame.2
 ```
@@ -359,7 +365,7 @@ my.data.frame.2
  
 
 ```r
-my.data.frame<-rbind(my.data.frame,my.data.frame.2)
+my.data.frame <- rbind(my.data.frame,my.data.frame.2)
 my.data.frame
 ```
 
@@ -378,8 +384,8 @@ Data frames can also be joined by columns. For example, create a data frame with
 
 
 ```r
-Country<- data.frame(rep("Brasil", 7))
-colnames(Country)<-"Country"
+Country <- data.frame(rep("Brasil", 7))
+colnames(Country) <- "Country"
 ```
 
 Then join them:
