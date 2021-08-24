@@ -18,7 +18,7 @@ A matrix is a bi-dimensional  rectangular data structure, like a more complex ve
 A matrix is bidimensional because it represents data in terms of columns and rows. The rows are represented by the first element in the angle brackets before the comma, while the columns are represented by the second number after the comma, so:
 
 - `[1,]` - represents the first row
-- `[,4]` - represents the fourth row
+- `[,4]` - represents the fourth column
 - `[1,1]` - represents the intersection between the first row and the first column
 - `[3,4]` - represents the intersection between the third row and the fourth column
 
