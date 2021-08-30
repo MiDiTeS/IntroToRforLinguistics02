@@ -9,7 +9,7 @@
 #' ---
 #' 
 ## ----setup, include=FALSE-------------------------
-knitr::opts_chunk$set(echo = TRUE)
+#knitr::opts_chunk$set(echo = TRUE)
 
 #' 
 #' # Our first analysis
@@ -103,8 +103,8 @@ head(M.0)
 #' THis is a Character encoding issue. It means that our texts are in other encoding than UFT-08. If we run the following command, we will solve the issue:
 #' 
 ## ----concerting-----------------------------------
-M.1 <- M.0 %>% 
-  mutate(text=iconv(text, from = "latin1", to = "UTF-8"))
+M.1 <- M.0 |> 
+  mutate(text =iconv(text, from = "latin1", to = "UTF-8"))
 
 #' 
 #' A couple of things about the command above:
@@ -142,13 +142,13 @@ M.1 <- M.1$text
 #' we will find the beginning of the book. Usually it is on chapter 1:
 #' 
 ## -------------------------------------------------
-which(M.1== "CAPITULO I")
+which(M.1 == "CAPITULO I")
 
 #' 
 #' The command which tells me it is on chapter 1. So I will assign it to a variable:
 #' 
 ## -------------------------------------------------
-inicio <- which(M.1== "CAPITULO I") 
+inicio <- which(M.1 == "CAPITULO I") 
 
 #' 
 #' I will do the same, now using the word "FIM" (end in Portuguese)
@@ -193,7 +193,7 @@ typeof(M1.l.v)
 #' 
 ## ----empty-delete---------------------------------
 ##Identifying which positions are empty
-not.blanks <- which(M1.l.v!="")
+not.blanks <- which(M1.l.v !="")
 
 # Deleting  the empty positions
 M1.l.v <- M1.l.v[not.blanks] 
@@ -222,7 +222,7 @@ M1.l.v[c(1,2,3)]
 #' I think Marcella is the most strong female character ins his book, let us check how many times she is in the book. 
 #' 
 ## -------------------------------------------------
-marcella.f <- which(M1.l.v=='marcella') 
+marcella.f <- which(M1.l.v =='marcella') 
 length(marcella.f)
 marcella.f
 
@@ -243,14 +243,14 @@ plot(marcella.f)
 #' - See how it was and comparing difference
 #' 
 ## -------------------------------------------------
-m.freqs.t<-table(M1.l.v)
+m.freqs.t <-table(M1.l.v)
 View(m.freqs.t)
 
 #' 
 #' Sorting the list in descending order:
 #' 
 ## -------------------------------------------------
-sorted.m.freqs.t <- sort(m.freqs.t, decreasing=TRUE)
+sorted.m.freqs.t <- sort(m.freqs.t, decreasing = TRUE)
 head(sorted.m.freqs.t,10)
 
 #' We now a new vector full of NA (not applicable). Its function will be to help create a relative marker of Marcella's position in the text:
@@ -283,7 +283,7 @@ plot(w.count.v, main="Ocorrências de Marcella",
 ## -------------------------------------------------
 library(readr)
 my.stopwords <- read_csv("stop_port2.csv", col_names = FALSE)
-colnames(my.stopwords)<-"word"
+colnames(my.stopwords) <- "word"
 
 #' 
 #' 
@@ -295,10 +295,10 @@ geral.list.df <- data.frame(text = M1.CB, stringsAsFactors = F)
 geral.list <- geral.list.df %>%
   unnest_tokens(word, text) %>%
   count(word, sort = TRUE) %>%
-  anti_join(my.stopwords, by= "word")%>%
+  anti_join(my.stopwords, by= "word") %>%
   mutate((freq = n / sum(n))*100) %>% 
   arrange(desc(n))
-colnames(geral.list)<-c('word','n','freq')
+colnames(geral.list) <- c('word','n','freq')
 
 #' 
 #' Fixing mistakes
@@ -328,16 +328,16 @@ library(forcats)
 geral.list %>% 
   mutate(word = fct_reorder(word, freq)) %>%
   slice(1:30) %>%
-  ggplot(., aes(x=word, y=freq))+
-  geom_point(size=3) + 
-  geom_segment(aes(x=word, 
-                   xend=word, 
-                   y=0, 
-                   yend=freq)) + 
-  labs(title="Lollipop Chart", 
-       subtitle="Tokens Vs Frequency", 
-       caption="Memórias Póstumas de Braz Cubas") + 
-  theme(axis.text.x = element_text(angle=65, vjust=0.6))
+  ggplot(., aes(x = word, y = freq)) +
+  geom_point(size = 3) + 
+  geom_segment(aes(x = word, 
+                   xend = word, 
+                   y = 0, 
+                   yend = freq)) + 
+  labs(title = "Lollipop Chart", 
+       subtitle = "Tokens Vs Frequency", 
+       caption = "Memórias Póstumas de Braz Cubas") + 
+  theme(axis.text.x = element_text(angle = 65, vjust = 0.6))
 
 #' 
 #' 
