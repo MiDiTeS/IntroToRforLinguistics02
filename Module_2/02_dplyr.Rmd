@@ -124,15 +124,27 @@ mutate(flights, total_delay = arr_delay+dep_delay)%>%
   select(total_delay)%>%
   head()
 ```
-Notice that here instead of embedding the command, the *pipe* `%>%` was my syntax choice. 
+Notice that here instead of embedding the command, the *pipe* `%>%` was my syntax choice. Initially the the *pipe* `%>%` function was introduced in R by the package `magrittr` which is able to do much much more than just pipening our code.
 
 If I want to select more than a column I will have to save it as a variable:
 
 ```{r more}
-delayed_flights <- mutate(flights, total_delay = arr_delay+dep_delay)
+delayed_flights <- mutate(flights, total_delay = arr_delay + dep_delay)
 head(select(delayed_flights, carrier, total_delay))
 ```
 
+
+However, from `R 4.10` on, it is now possible to use a native *pipe* operator `|>`. The reasons to such change is that the use of `%>%` takes much more in terms of memory than any R native resources. There are two ways of activating native `|>`:
+
+- Get any version over `R 4.10` that it will work out of the box
+  - For MacOS users: it has been just updated
+- Activate on preferences > code
+
+![Native Pipe](./images/settings_pipe.png)
+
+If you want to see a complete discussion on the differences between the two approaches, I would recommend the following [video](https://www.youtube.com/watch?v=wmvjxb6Gdm8)
+
+So, from now on I will be using `%>%` or `|>` interchangeably. 
 
 ## Arrange and filter
 

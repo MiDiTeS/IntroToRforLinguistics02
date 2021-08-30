@@ -1,6 +1,8 @@
- Rodrigo Esteves de Lima Lopes \
+Rodrigo Esteves de Lima Lopes \
 *Campinas State University* \
 [rll307@unicamp.br](mailto:rll307@unicamp.br)
+
+# A very introduction to dyplr
 
 
 # Introduction
@@ -41,18 +43,18 @@ head(starwars,10)
 
 ```
 ## # A tibble: 10 x 14
-##    name  height  mass hair_color skin_color eye_color birth_year sex   gender
-##    <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> <chr> 
-##  1 Luke~    172    77 blond      fair       blue            19   male  mascu~
-##  2 C-3PO    167    75 <NA>       gold       yellow         112   none  mascu~
-##  3 R2-D2     96    32 <NA>       white, bl~ red             33   none  mascu~
-##  4 Dart~    202   136 none       white      yellow          41.9 male  mascu~
-##  5 Leia~    150    49 brown      light      brown           19   fema~ femin~
-##  6 Owen~    178   120 brown, gr~ light      blue            52   male  mascu~
-##  7 Beru~    165    75 brown      light      blue            47   fema~ femin~
-##  8 R5-D4     97    32 <NA>       white, red red             NA   none  mascu~
-##  9 Bigg~    183    84 black      light      brown           24   male  mascu~
-## 10 Obi-~    182    77 auburn, w~ fair       blue-gray       57   male  mascu~
+##    name    height  mass hair_color  skin_color eye_color birth_year sex   gender
+##    <chr>    <int> <dbl> <chr>       <chr>      <chr>          <dbl> <chr> <chr> 
+##  1 Luke S~    172    77 blond       fair       blue            19   male  mascu~
+##  2 C-3PO      167    75 <NA>        gold       yellow         112   none  mascu~
+##  3 R2-D2       96    32 <NA>        white, bl~ red             33   none  mascu~
+##  4 Darth ~    202   136 none        white      yellow          41.9 male  mascu~
+##  5 Leia O~    150    49 brown       light      brown           19   fema~ femin~
+##  6 Owen L~    178   120 brown, grey light      blue            52   male  mascu~
+##  7 Beru W~    165    75 brown       light      blue            47   fema~ femin~
+##  8 R5-D4       97    32 <NA>        white, red red             NA   none  mascu~
+##  9 Biggs ~    183    84 black       light      brown           24   male  mascu~
+## 10 Obi-Wa~    182    77 auburn, wh~ fair       blue-gray       57   male  mascu~
 ## # ... with 5 more variables: homeworld <chr>, species <chr>, films <list>,
 ## #   vehicles <list>, starships <list>
 ```
@@ -87,14 +89,14 @@ head(starwars %>%
 
 ```
 ## # A tibble: 6 x 14
-##   name  height  mass hair_color skin_color eye_color birth_year sex   gender
-##   <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> <chr> 
-## 1 C-3PO    167    75 <NA>       gold       yellow           112 none  mascu~
-## 2 R2-D2     96    32 <NA>       white, bl~ red               33 none  mascu~
-## 3 R5-D4     97    32 <NA>       white, red red               NA none  mascu~
-## 4 IG-88    200   140 none       metal      red               15 none  mascu~
-## 5 R4-P~     96    NA none       silver, r~ red, blue         NA none  femin~
-## 6 BB8       NA    NA none       none       black             NA none  mascu~
+##   name   height  mass hair_color skin_color  eye_color birth_year sex   gender  
+##   <chr>   <int> <dbl> <chr>      <chr>       <chr>          <dbl> <chr> <chr>   
+## 1 C-3PO     167    75 <NA>       gold        yellow           112 none  masculi~
+## 2 R2-D2      96    32 <NA>       white, blue red               33 none  masculi~
+## 3 R5-D4      97    32 <NA>       white, red  red               NA none  masculi~
+## 4 IG-88     200   140 none       metal       red               15 none  masculi~
+## 5 R4-P17     96    NA none       silver, red red, blue         NA none  feminine
+## 6 BB8        NA    NA none       none        black             NA none  masculi~
 ## # ... with 5 more variables: homeworld <chr>, species <chr>, films <list>,
 ## #   vehicles <list>, starships <list>
 ```
@@ -109,11 +111,11 @@ head(starwars %>%
 
 ```
 ## # A tibble: 3 x 14
-##   name  height  mass hair_color skin_color eye_color birth_year sex   gender
-##   <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> <chr> 
-## 1 Luke~    172    77 blond      fair       blue            19   male  mascu~
-## 2 Dart~    202   136 none       white      yellow          41.9 male  mascu~
-## 3 Leia~    150    49 brown      light      brown           19   fema~ femin~
+##   name     height  mass hair_color skin_color eye_color birth_year sex    gender
+##   <chr>     <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr>  <chr> 
+## 1 Luke Sk~    172    77 blond      fair       blue            19   male   mascu~
+## 2 Darth V~    202   136 none       white      yellow          41.9 male   mascu~
+## 3 Leia Or~    150    49 brown      light      brown           19   female femin~
 ## # ... with 5 more variables: homeworld <chr>, species <chr>, films <list>,
 ## #   vehicles <list>, starships <list>
 ```
@@ -130,11 +132,11 @@ head(starwars %>%
 
 ```
 ## # A tibble: 3 x 14
-##   name  height  mass hair_color skin_color eye_color birth_year sex   gender
-##   <chr>  <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> <chr> 
-## 1 Dart~    202   136 none       white      yellow          41.9 male  mascu~
-## 2 Lobot    175    79 none       light      blue            37   male  mascu~
-## 3 Mace~    188    84 none       dark       brown           72   male  mascu~
+##   name     height  mass hair_color skin_color eye_color birth_year sex   gender 
+##   <chr>     <int> <dbl> <chr>      <chr>      <chr>          <dbl> <chr> <chr>  
+## 1 Darth V~    202   136 none       white      yellow          41.9 male  mascul~
+## 2 Lobot       175    79 none       light      blue            37   male  mascul~
+## 3 Mace Wi~    188    84 none       dark       brown           72   male  mascul~
 ## # ... with 5 more variables: homeworld <chr>, species <chr>, films <list>,
 ## #   vehicles <list>, starships <list>
 ```
@@ -258,13 +260,13 @@ mutate(flights, total_delay = arr_delay+dep_delay)%>%
 ## 5         -31
 ## 6           8
 ```
-Notice that here instead of embedding the command, the *pipe* `%>%` was my syntax choice. 
+Notice that here instead of embedding the command, the *pipe* `%>%` was my syntax choice. Initially the the *pipe* `%>%` function was introduced in R by the package `magrittr` which is able to do much much more than just pipening our code.
 
 If I want to select more than a column I will have to save it as a variable:
 
 
 ```r
-delayed_flights <- mutate(flights, total_delay = arr_delay+dep_delay)
+delayed_flights <- mutate(flights, total_delay = arr_delay + dep_delay)
 head(select(delayed_flights, carrier, total_delay))
 ```
 
@@ -280,6 +282,18 @@ head(select(delayed_flights, carrier, total_delay))
 ## 6 UA                8
 ```
 
+
+However, from `R 4.10` on, it is now possible to use a native *pipe* operator `|>`. The reasons to such change is that the use of `%>%` takes much more in terms of memory than any R native resources. There are two ways of activating native `|>`:
+
+- Get any version over `R 4.10` that it will work out of the box
+  - For MacOS users: it has been just updated
+- Activate on preferences > code
+
+![Native Pipe](./images/settings_pipe.png)
+
+If you want to see a complete discussion on the differences between the two approaches, I would recommend the following [video](https://www.youtube.com/watch?v=wmvjxb6Gdm8)
+
+So, from now on I will be using `%>%` or `|>` interchangeably. 
 
 ## Arrange and filter
 
