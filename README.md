@@ -4,7 +4,9 @@ Rodrigo Esteves de Lima Lopes \
 *Campinas State University* \
 [rll307@unicamp.br](mailto:rll307@unicamp.br)
 
-This is the ongoing first try of a R course applied to language studies. Please feel free to help in the codes and tutorial improvement. If you see any mistake or possibility of code rewriting, please let me know. 
+In this course I am going to discuss some strategies of  text analysis. It was produced in order to assist colleagues who work in the area of Corpus Linguistics and Systemic Functional Linguistics, as a way to use R in their research. It is part of my CNPq-funded project and seeks to make corpus tools and `R` accessible. If you have any doubts or wish to make any research contact please send me an email.
+
+This is the ongoing second try of a R course applied to language studies. Please feel free to help in the codes and tutorial improvement. If you see any mistake or possibility of code rewriting, please let me know. 
 
 Initially, it was thought as a set of lessons to my graduate students at [IEL](http://www.iel.unicamp.br)/[UNICAMP](https://www.unicamp.br/unicamp/). However, the possibility of further discussion with fellow researchers drove me to let it open to the community. So, if you are not a MA student or a PhD student/candidate under my supervision, you might skip the first module. 
 
@@ -37,7 +39,6 @@ In the assignment section, you will find a set of tasks to be performed. Such ta
 - The assignments are mandatory. 
 
 If you have any doubts or ideas, please drop me a line at [rll307@unicamp.br](mailto:rll307@unicamp.br)
-
 
 
 
