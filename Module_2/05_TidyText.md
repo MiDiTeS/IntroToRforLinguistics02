@@ -452,9 +452,9 @@ head(bigrams.count)
 Now we will analyse the relevance of each bigrams in the novel
 
 ``` {.r}
-clarisse.tf_idf <- clarisse.united %>%
-  count(book, bigram) %>%
-  bind_tf_idf(bigram, book, n) %>%
+clarisse.tf_idf <- clarisse.united |>
+  count(book, bigram) |>
+  bind_tf_idf(bigram, book, n) |>
   arrange(desc(tf_idf))
 head(clarisse.tf_idf)
 ```
@@ -494,8 +494,8 @@ Our next step is to prepare and plot a couple of network graphics. Fist each nov
 set.seed(1973)
 #Selecting the words and creating the interaction file
 # Hora da estrela
-hora.graph <- hora.count %>%
-  filter(n > 10) %>%
+hora.graph <- hora.count |>
+  filter(n > 10) |>
   igraph::graph_from_data_frame()
 hora.graph
 ```
@@ -524,8 +524,8 @@ ggraph::ggraph(hora.graph, layout = "fr") +
 
 ``` {.r}
 set.seed(1973)
-paixao.graph <- paixao.count %>%
-  filter(n > 20) %>%
+paixao.graph <- paixao.count |>
+  filter(n > 20) |>
   igraph::graph_from_data_frame()
 print(paixao.graph)
 ```

@@ -34,7 +34,7 @@ paixao <- textreadr::read_document("paixao.txt")
 estrela <- data.frame(text = estrela, stringsAsFactors = F)
 paixao <- data.frame(text = paixao, stringsAsFactors = F)
 
-## Cleaning the text----------e
+## Cleaning the text----------
 
 analise.paixao <- Clean_String(paixao$text) |>
   data.frame()
@@ -131,20 +131,20 @@ clarisse.filtered <- clarisse.separated |>
 
 # Counting the filtered bigrams
 
-bigrams.count <- clarisse.filtered %>% 
+bigrams.count <- clarisse.filtered |> 
   count(word1, word2, sort = TRUE)
 
 # Merging the bigrams
 
-clarisse.united <- clarisse.filtered %>%
+clarisse.united <- clarisse.filtered |>
   unite(bigram, word1, word2, sep = " ")
 
 ### Doing some analysis----------
 
 # creating relative frequency 
-clarisse.tf_idf <- clarisse.united %>%
-  count(book, bigram) %>%
-  bind_tf_idf(bigram, book, n) %>%
+clarisse.tf_idf <- clarisse.united |>
+  count(book, bigram) |>
+  bind_tf_idf(bigram, book, n) |>
   arrange(desc(tf_idf))
 
 ## Ploting the relative frequency
@@ -163,8 +163,8 @@ clarisse.tf_idf  |>
 
 # plotting a network graphic
 # Only more than 20
-hora.graph <- hora.count %>%
-  filter(n > 10) %>%
+hora.graph <- hora.count |>
+  filter(n > 10) |>
   igraph::graph_from_data_frame()
 
 set.seed(1973)
@@ -175,8 +175,8 @@ ggraph::ggraph(hora.graph, layout = "fr") +
   ggraph::geom_node_text(aes(label = name), vjust = 1, hjust = 1)
 
 
-paixao.graph <- paixao.count %>%
-  filter(n > 20) %>%
+paixao.graph <- paixao.count |>
+  filter(n > 20) |>
   igraph::graph_from_data_frame()
 
 ggraph::ggraph(paixao.graph, layout = "fr") +
