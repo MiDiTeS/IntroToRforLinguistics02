@@ -23,13 +23,13 @@ In this notebook I am going to compare two novels by Clarisse Lispector: A Hora 
 In this article we are going to use the following packages:
 
 ``` {.r}
-library(tidytext) #OK
-library(dplyr) #OK
+library(tidytext)
+library(dplyr)
 library(tidyverse)
 library(tidyr)
 library(stringr)
 # library(ggraph) Only one function in the code
-# # library(igraph) Only one function in the code
+# library(igraph) Only one function in the code
 # library(textreadr) only one function in the code
 # library(abjutils) only one command inside functions
 # library(textclean) only one command inside functions

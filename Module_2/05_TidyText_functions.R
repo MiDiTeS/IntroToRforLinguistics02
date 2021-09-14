@@ -1,7 +1,7 @@
 # Functions
-Clean_String <- function(x){
+Clean_String <- function(text){
   #Clear accents and diacritics
-  temp <- abjutils::rm_accent(x)
+  temp <- abjutils::rm_accent(text)
   # Clear html 
   temp <- textclean::replace_html(temp, symbol = TRUE)
   # Lowercase
@@ -10,7 +10,7 @@ Clean_String <- function(x){
   # temp <- stringr::str_replace_all(temp,"[^a-zA-Z\\s]", "")
   # Shrink down to just one white space
   temp <- str_squish(temp)
-  # remove empity lines
+  # remove empty lines
   temp <- na_if(temp,"")
   temp <- na.omit(temp)
   return(temp)
