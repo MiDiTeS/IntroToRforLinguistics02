@@ -10,7 +10,7 @@ Clean_String <- function(text){
   temp <- stringr::str_replace_all(temp,"[^a-zA-Z\\s]", "")
   # Shrink down to just one white space
   temp <- str_squish(temp)
-  # remove empity lines
+  # remove empty lines
   temp <- na_if(temp,"")
   temp <- na.omit(temp)
   return(temp)
