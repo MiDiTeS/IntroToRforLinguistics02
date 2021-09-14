@@ -1,7 +1,7 @@
 # Functions
-Clean_String <- function(x){
+Clean_String <- function(text){
   #Clear accents and diacritics
-  temp <- abjutils::rm_accent(x)
+  temp <- abjutils::rm_accent(text)
   # Clear html 
   temp <- textclean::replace_html(temp, symbol = TRUE)
   # Lowercase
