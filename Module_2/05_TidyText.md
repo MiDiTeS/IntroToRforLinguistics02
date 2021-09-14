@@ -29,7 +29,7 @@ library(tidyverse)
 library(tidyr)
 library(stringr)
 # library(ggraph) Only one function in the code
-# # library(igraph) Only one function in the code
+# library(igraph) Only one function in the code
 # library(textreadr) only one function in the code
 # library(abjutils) only one command inside functions
 # library(textclean) only one command inside functions
