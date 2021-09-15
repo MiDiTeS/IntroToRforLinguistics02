@@ -8,7 +8,7 @@ Rodrigo Esteves de Lima Lopes\
 
 In this post I am going to discuss some strategies of comparison between texts and sentiment analysis. It was produced in order to assist colleagues who work in the area of Corpus Linguistics and Systemic Functional Linguistics, as a way to use R in their research. I think that sentiment analysis is an area which needs much work and is disregarded by linguistics. I hope it is a beginning. This is part of my CNPq-funded project and seeks to make corpus tools and network analysis accessible. If you have any doubts or wish to make any research contact please send me an email.
 
-This document is based in the post by Bradley Boehmke and the UC R Programming Blog available [here](https://uc-r.github.io/sentiment_analysis?utm_source=pocket_mylist). I havae done some very small changes to adapt it for my grad students.
+This document is based in the post by Bradley Boehmke and the UC R Programming Blog available [here](https://uc-r.github.io/sentiment_analysis?utm_source=pocket_mylist). I have done some very small changes to adapt it for my grad students.
 
 # Harry Potter and sentiment analysis
 
