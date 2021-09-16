@@ -40,7 +40,7 @@ books <- list(philosophers_stone, chamber_of_secrets, prisoner_of_azkaban,
 # Creating an empty data frame for latter use
 WL.Books <- tibble()
 
-# Making a comprehensive wordlist
+# Making a comprehensive word list
 for (i in seq_along(titles)) {
   pre.list <- tibble(chapter = seq_along(books[[i]]),
                      text = books[[i]]) %>%
