@@ -8,7 +8,6 @@ writeLines("It is part of my CNPq-funded project and seeks to make corpus tools 
 library(rvest)
 library(purrr)
 library(xml2) 
-library(readr)
 library(stringr)
 library(dplyr)
 
@@ -19,7 +18,7 @@ library(dplyr)
 # Daily Star --------------------------------------------------------------
 
 # Importing the file good for data retrieving
-articles_DS.df <- read_csv("Module_3/articles_DS.csv")
+articles_DS.df <- readr::read_csv("Module_3/articles_DS.csv")
 article <- as_vector(articles_DS.df)
 
 # Function for data scraping
@@ -39,7 +38,6 @@ DS.df$site <- 'DailyStar'
 # Telegraph ---------------------------------------------------------------
 
 articles_TT.df <- readr::read_csv('Module_3/articles_TT.csv')
-
 article <- as_vector(articles_TT.df)
 
 map_dfr(.x = article,
@@ -58,7 +56,7 @@ TT.df$site <- 'TheTelegraph'
 
 # The Sun -----------------------------------------------------------------
 
-articles_TS.df <- read_csv("Module_3/articles_TS.csv")
+articles_TS.df <- readr::read_csv("Module_3/articles_TS.csv")
 article <- as_vector(articles_TS.df)
 
 map_dfr(.x = article,
