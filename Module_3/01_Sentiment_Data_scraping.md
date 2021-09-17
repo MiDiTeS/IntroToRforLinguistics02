@@ -237,7 +237,7 @@ TT.df$ID <- paste0('TT', 1:length(TT.df$site))
 
 ### The Sun
 
-Here the code is similar, but a little changes are necessary: 1) `html_nodes` has a different content; 2) The lines do not repeat themselves, so the do not need to aggregate and create the source and ID directly in the code.
+Here the code is similar, but a little changes are necessary: 1) `html_nodes` has a different content; 2) The lines do not repeat themselves, so the do not need to aggregate and create the source directly in the code.
 
 
 ```r
