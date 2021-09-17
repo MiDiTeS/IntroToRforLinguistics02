@@ -34,6 +34,7 @@ map_dfr(.x = article,
 
 DS.df <- aggregate(Content ~ Title, DS.df, FUN = paste, collapse = ' ')
 DS.df$site <- 'DailyStar'
+DS.df$ID <- paste0('DS', 1:length(DS.df$site))
 
 # Telegraph ---------------------------------------------------------------
 
@@ -53,6 +54,7 @@ TT.df <- TT.df %>%
   summarise(Content = str_c(Content, collapse = " "),
             .groups = 'drop')
 TT.df$site <- 'TheTelegraph'
+TT.df$ID <- paste0('TT', 1:length(TT.df$site))
 
 # The Sun -----------------------------------------------------------------
 
@@ -62,12 +64,40 @@ article <- as_vector(articles_TS.df)
 map_dfr(.x = article,
         .f = function(x){
           tibble(Title = read_html(x) %>%
-                   html_nodes("title") %>%
+                   html_nodes('title') %>%
                    html_text(),
                  Content = read_html(x) %>%
                    html_nodes(xpath = "//div[@class='article__content']") %>%
                    html_text(),
-                 Site = "TheSun")}) -> TS.df
+                 Site = "TheSun"
+          )}) -> TS.df
+TS.df$ID <- paste0('TS', 1:length(articles_TS.df$Address))
+
+
+# For saving each file as a Data Frame ----------
+
+TSt.df <- data.frame(TS.df) #Necessary due to compatibility
+
+my.files <- as_vector(TSt.df$ID) # Making a vector for the indexing
+
+location <- list() # empty list
+
+for (i in 1:length(my.files)) { # looping for locating each file in my data frame
+  location[[i]] <- grep(my.files[i], TSt.df[,4])
+}
+
+for (i in 1:length(my.files)) { # gets each location in my files
+  file.name <- paste(my.files[i], ".txt", sep = "") #paste the name of ID as file name
+  sink(file.name) # Open the connection to a empty file
+  print(as_vector(TSt.df[location[[i]],2])) # prints each line as a vector into the file
+  gsub("\r?\n|\r", " ", file.name) 
+  sink()
+}
+
+
+
+
+
 
 
 
