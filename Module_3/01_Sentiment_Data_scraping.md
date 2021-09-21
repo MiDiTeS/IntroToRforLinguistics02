@@ -47,7 +47,7 @@ The package `rvest` aims to scrape (or harvest) data from web pages. To know the
 #reads the address form the web
 test <- read_html('https://www.telegraph.co.uk/news/uknews/immigration/10417222/Illegal-immigrants-cost-taxpayer-more-than-4000-a-head-each-year.html')
 ```
-It produces a list with the webpage and the codes which identify them in terms of tags and functions, but still very difficult for us to read. DEspite of that, we need to navigate to this code in order to find out were the information we need is. I would suggest to use a borwser named [Firefox](https://www.mozilla.org/en-US/firefox/new/) which has an very interesting function: it easly shows the code of a webpage in a ways it gets a little simpler to read. In the pictures 1 and 2 (bellow) we can see the menu and an indication where the **title** of the article is. 
+It produces a list with the webpage and the codes which identify them in terms of tags and functions, but still very difficult for us to read. DEspite of that, we need to navigate to this code in order to find out were the information we need is. I would suggest to use a browser named [Firefox](https://www.mozilla.org/en-US/firefox/new/) which has an very interesting function: it easly shows the code of a webpage in a ways it gets a little simpler to read. In the pictures 1 and 2 (bellow) we can see the menu and an indication where the **title** of the article is. 
 
  ![menu](images/menu.png)
  
