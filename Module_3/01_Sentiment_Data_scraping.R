@@ -33,8 +33,8 @@ map_dfr(.x = article,
                    html_text())}) -> DS.df
 
 DS.df <- aggregate(Content ~ Title, DS.df, FUN = paste, collapse = ' ')
-DS.df$site <- 'DailyStar'
-DS.df$ID <- paste0('DS', 1:length(DS.df$site))
+DS.df$Site <- 'DailyStar'
+DS.df$doc_id <- paste0('DS', row.names(DS.df))
 
 # Telegraph ---------------------------------------------------------------
 
@@ -53,8 +53,8 @@ TT.df <- TT.df %>%
   group_by(Title) %>%
   summarise(Content = str_c(Content, collapse = " "),
             .groups = 'drop')
-TT.df$site <- 'TheTelegraph'
-TT.df$ID <- paste0('TT', 1:length(TT.df$site))
+TT.df$Site <- 'TheTelegraph'
+TT.df$doc_id <- paste0('TT', row.names(TT.df))
 
 # The Sun -----------------------------------------------------------------
 
@@ -71,14 +71,14 @@ map_dfr(.x = article,
                    html_text(),
                  Site = "TheSun"
           )}) -> TS.df
-TS.df$ID <- paste0('TS', 1:length(articles_TS.df$Address))
+TS.df$doc_id <- paste0('TS', row.names(articles_TS.df))
 
 
 # For saving each file as a Data Frame ----------
 
 TSt.df <- data.frame(TS.df) #Necessary due to compatibility
 
-my.files <- as_vector(TSt.df$ID) # Making a vector for the indexing
+my.files <- as_vector(TSt.df$doc_id) # Making a vector for the indexing
 
 location <- list() # empty list
 

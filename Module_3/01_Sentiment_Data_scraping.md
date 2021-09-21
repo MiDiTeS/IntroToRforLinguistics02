@@ -5,6 +5,8 @@ Rodrigo Esteves de Lima Lopes\
 *Campinas State University*\
 [rll307@unicamp.br](mailto:rll307@unicamp.br)
 
+
+
 # Introduction
 
 This file will discuss specifically how to scrape data for replicating Lima-Lopes (2020). Please note that we will not make the whole corpus available here due to copyright. If you choose to reproduce this paper all articles have to be scraped by you. It is also important to observe that some articles might have been taken offline (actually by the time of this replication some already have). 
@@ -208,7 +210,7 @@ Finally we are going to 1) identify each article source and ascribe a unique ID:
 
 ```r
 DS.df$site <- 'DailyStar' #Source
-DS.df$ID <- paste0('DailyStar', 1:length(DS.df))
+DS.df$doc_id <- paste0('DS', row.names(DS.df))
 head(DS.df)
 ```
 
@@ -232,12 +234,12 @@ TT.df <- TT.df %>%
   summarise(Content = str_c(Content, collapse = " "),
             .groups = 'drop')
 TT.df$site <- 'TheTelegraph'
-TT.df$ID <- paste0('TT', 1:length(TT.df$site))
+TT.df$doc_id <- paste0('TT', row.names(TT.df))
 ```
 
 ### The Sun
 
-Here the code is similar, but a little changes are necessary: 1) `html_nodes` has a different content; 2) The lines do not repeat themselves, so the do not need to aggregate and create the source directly in the code.
+Here the code is similar, but a little changes are necessary: 1) `html_nodes` has a different content; 2) The lines do not repeat themselves, so the do not need to aggregate and create the source and directly in the function.
 
 
 ```r
@@ -251,7 +253,7 @@ map_dfr(.x = articles_TS,
                    html_text(),
                  Site = "TheSun"
                  )}) -> TS.df
-TS.df$ID <- paste0('TS', 1:length(articles_TS.df$Address))
+TS.df$doc_id <- paste0('TS', row.names(articles_TS.df))
 ```
 
 
