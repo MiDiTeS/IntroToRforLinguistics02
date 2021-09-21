@@ -452,6 +452,9 @@ head(bigrams.count)
 Now we will analyse the relevance of each bigrams in the novel
 
 ``` {.r}
+clarisse.united <- clarisse.filtered |>
+  unite(bigram, word1, word2, sep = ' ')
+  
 clarisse.tf_idf <- clarisse.united |>
   count(book, bigram) |>
   bind_tf_idf(bigram, book, n) |>
