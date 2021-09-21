@@ -6,7 +6,7 @@ output:
     number_sections: yes
     toc: yes
     toc_depth: 5
-    keep_md: true
+    # keep_md: true
 editor_options: 
   markdown: 
     wrap: 72
@@ -19,7 +19,6 @@ library(dplyr) #OK
 library(tidyverse)
 library(tidyr)
 library(stringr)
-load("/Volumes/GoogleDrive/My Drive/Profissional/Pedagogico/UNICAMP/disciplinas/pos/R/lp192_2021/IntroToRforLinguistics02/Module_2/clarisse.RData")
 ```
 
 # Introduction
@@ -97,24 +96,24 @@ conjunctions. There are a number of stop-words list for Portuguese, I
 would advise you to prepare your own based on your research objectives.
 The code bellow also loads the two novels in R.
 
-```{r stopwords}
+```{r stopwords, eval=FALSE, echo=TRUE}
 My.Stopwords <- data.frame(
   readr::read_csv("stop_port2.csv", col_names = FALSE),stringsAsFactors = FALSE
   )
 colnames(My.Stopwords) <- "word"
 ```
 
-```{r view1}
+```{r view1, eval=FALSE, echo=TRUE}
 head(My.Stopwords,10)
 ```
 
 Now we are going to load the novels:
 
-```{r estrela}
+```{r estrela , eval=FALSE, echo=TRUE}
 estrela <- textreadr::read_document("estrela.txt")
 ```
 
-```{r paixao}
+```{r paixao , eval=FALSE, echo=TRUE}
 paixao <- textreadr::read_document("paixao.txt")
 ```
 
@@ -137,7 +136,7 @@ developed earlier. This function is in another `R` script, called
 `05_TidyText_functions.R`. We going to load it using the following
 command:
 
-```{r functions01}
+```{r functions01 , eval=FALSE, echo=TRUE}
 source("05_TidyText_functions.R")
 ```
 
@@ -148,21 +147,21 @@ source("05_TidyText_functions.R")
 Our fist step will be processing the two novels in a set of words with
 their frequencies.
 
-```{r Estrela.df}
+```{r Estrela.df , eval=FALSE, echo=TRUE}
 estrela <- data.frame(text = estrela, stringsAsFactors = F)
 ```
 
-```{r Estrela.tidy}
+```{r Estrela.tidy, eval=FALSE, echo=TRUE}
 paixao.tidy <- analise.paixao  |>
   unnest_tokens(word, text) |>
   anti_join(My.Stopwords, by = "word")
 ```
 
-```{r paixao.df}
+```{r paixao.df, eval=FALSE, echo=TRUE}
 paixao <- data.frame(text = paixao, stringsAsFactors = F)
 ```
 
-```{r paixao.tidy}
+```{r paixao.tidy, eval=FALSE, echo=TRUE}
 paixao.tidy <- paixao  |>
   unnest_tokens(word, text) |>
   anti_join(My.Stopwords, by = "word")
@@ -173,7 +172,7 @@ make the files processable by R. Our next step is to apply our
 customised function (`Clean_String`) to the files. Note that we keep the
 data frame format.
 
-```{r cleaning}
+```{r cleaning, eval=FALSE, echo=TRUE}
 analise.paixao <- Clean_String(paixao$text) |>
   data.frame()
 colnames(analise.paixao) <- 'text'
@@ -192,7 +191,7 @@ the data frame in order to:
 
 -   Count and present the wordlist
 
-```{r wl0}
+```{r wl0, eval=FALSE, echo=TRUE}
 paixao.tidy <- analise.paixao  |>
   unnest_tokens(word, text) |>
   anti_join(My.Stopwords, by = "word")
@@ -210,12 +209,12 @@ itself. However it is also possible to observe that *procurando* is
 present twice in the list. It happens because we are not counting
 occurrences, but only displaying the novel's words.
 
-```{r wl1}
-paixao.l<- paixao.tidy |>
+```{r wl1, eval=FALSE, echo=TRUE}
+paixao.l <- paixao.tidy |>
   count(word, sort = TRUE)
 ```
 
-```{r wl2}
+```{r wl2 , eval=FALSE, echo=TRUE}
 esterla.l <- estrela.tidy |>
   count(word, sort = TRUE)
 ```
@@ -224,16 +223,8 @@ The code above transforms these lists in something similar to a word
 list. The first line creates the file itself, which I chose to name with
 the suffix "\*.l". The operator " \|\>" is part of the tidyverse, its
 function is to help us to "pass" one line of code through to the other
-and perform more than a command at once. The following code counts the
+and perform more than a command at once. The  code counts the
 words and creates a new column with the results.
-
-```{r head2}
-head(paixao.l, 10)
-```
-
-```{r head3}
-head(esterla.l, 10)
-```
 
 Our next step is to build a table comparing the frequency of such words.
 It is necessary in order to generate the visualisations and make the
@@ -245,7 +236,7 @@ symbols. We group the words by book (*livro* in Portuguese) and
 calculate the relative proportion of the words within each novel. Since
 absolute values do not mean much, we delete them.
 
-```{r comparing1}
+```{r comparing1 , eval=FALSE, echo=TRUE}
 frequencia.clarisse <- bind_rows(mutate(paixao.tidy, livro = "P"),
                                  mutate(estrela.tidy, livro = "H"))  |>
   mutate(word = str_extract(word, "[a-z']+"))  |>
@@ -261,7 +252,7 @@ It was possible to observe that the word **aaaar** is present in the top
 of the list. If we want to clean it out, we have to add it to our stop
 wordlist:
 
-```{r WLn}
+```{r WLn , eval=FALSE, echo=TRUE}
 My.Stopwords <- data.frame(word = c(My.Stopwords$word,"aaaar"))
 ```
 
@@ -275,7 +266,7 @@ making them overlap. The position is calculated my a log scale that
 helps to represent the overlapping. The more central a word is in the
 graphic, the less "specific" of a book it is.
 
-```{r plot1}
+```{r plot1 , eval=FALSE, echo=TRUE}
 ggplot(frequencia.clarisse, aes(x = H, y = P,
                                 color = abs(H - P))) +
   geom_abline(color = "gray40", lty = 2) +
@@ -289,13 +280,14 @@ ggplot(frequencia.clarisse, aes(x = H, y = P,
   labs(y = "Paixão segundo GH", x = "Hora da Estrela")
 ```
 
+
 ## Analysing bigrams
 
 In order to do a complete bigrams analysis. We will do some changes to
 the files. First we add a column to each and then make those a single
 data frame. Note that the book column will become a `factor`
 
-```{r redesign}
+```{r redesign , eval=FALSE, echo=TRUE}
 # Adding a column with book titles 
 analise.estrela$book <- "Hora da Estrela"
 analise.paixao$book <- "Paixao segundo GH"
@@ -307,7 +299,7 @@ head(clarisse.livros)
 
 Ou next step is to create the bigrams itself.
 
-```{r bigrams1}
+```{r bigrams1 , eval=FALSE, echo=TRUE}
 # Creating bigrams
 clarisse.bigrams <- clarisse.livros |>
   unnest_tokens(bigram, text, token = "ngrams", n = 2)
@@ -326,7 +318,7 @@ Ou next step is to separate the words, these will be important for our
 network analysis. Note that the command is separating two columns using
 a single space as a criterion.
 
-```{r separation1}
+```{r separation1 , eval=FALSE, echo=TRUE}
 clarisse.separated <- clarisse.bigrams |>
   separate(bigram, c("word1", "word2"), sep = " ")
 head(clarisse.separated)
@@ -335,7 +327,7 @@ head(clarisse.separated)
 Since we will also to analyse each novel separately, we will make the
 same procedure for each
 
-```{r split_novels}
+```{r split_novels , eval=FALSE, echo=TRUE}
 hora.count <- clarisse.bigrams |>
   subset(book == "Hora da Estrela") |>
   count(bigram, sort = TRUE) |>
@@ -354,7 +346,7 @@ head(paixao.count)
 
 Now we are going to clean the stopwords and see the difference
 
-```{r cleanSW}
+```{r cleanSW , eval=FALSE, echo=TRUE}
 clarisse.filtered <- clarisse.separated |>
   filter(!word1 %in% My.Stopwords$word) |>
   filter(!word2 %in% My.Stopwords$word)
@@ -363,7 +355,7 @@ head(clarisse.filtered)
 
 Now we count the filtered bigrams and have a look at it
 
-```{r count_filtered}
+```{r count_filtered , eval=FALSE, echo=TRUE}
 bigrams.count <- clarisse.filtered |> 
   count(word1, word2, sort = TRUE)
 head(bigrams.count)
@@ -373,18 +365,20 @@ head(bigrams.count)
 
 Now we will analyse the relevance of each bigrams in the novel
 
-```{r tdf}
+```{r tdf , eval=FALSE, echo=TRUE}
+clarisse.united <- clarisse.filtered |>
+  unite(bigram, word1, word2, sep = ' ')
+
 clarisse.tf_idf <- clarisse.united |>
   count(book, bigram) |>
   bind_tf_idf(bigram, book, n) |>
   arrange(desc(tf_idf))
 head(clarisse.tf_idf)
-
 ```
 
 Now we are going to plot these frequencies
 
-```{r plot2}
+```{r plot2, eval=FALSE, echo=TRUE}
 ## Ploting the relative frequency
 clarisse.tf_idf  |>
   arrange(desc(tf_idf)) |>
@@ -403,7 +397,7 @@ clarisse.tf_idf  |>
 Our next step is to prepare and plot a couple of network graphics. Fist
 each novel individually:
 
-```{r plot3}
+```{r plot3, eval=FALSE, echo=TRUE}
 set.seed(1973)
 #Selecting the words and creating the interaction file
 # Hora da estrela
@@ -418,7 +412,7 @@ ggraph::ggraph(hora.graph, layout = "fr") +
                          vjust = 1, hjust = 1)
 ```
 
-```{r plot4}
+```{r plot4, eval=FALSE, echo=TRUE}
 set.seed(1973)
 paixao.graph <- paixao.count |>
   filter(n > 20) |>
@@ -433,7 +427,7 @@ ggraph::ggraph(paixao.graph, layout = "fr") +
 
 Now doing both books together
 
-```{r plot5}
+```{r plot5, eval=FALSE, echo=TRUE}
 set.seed(1973)
 # Getting the filtered bigrams
 clarisse.g <- clarisse.filtered[,2:3] |>
