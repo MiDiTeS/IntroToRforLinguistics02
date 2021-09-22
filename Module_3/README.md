@@ -1,6 +1,4 @@
-
 # README
-Sentiment analysis and LSF: "Replication of Lima-Lopes (2020)"
 
 # Introduction
 
@@ -16,20 +14,24 @@ My general idea is make a full replication, which will take place in five differ
 
     -   Data scraping from the news media
 
-2.  02_Sentiment_Lexical_Network.md
+2.  02_Sentiment_pre_processing_network.md
 
     -   Network of words using:
+
         -   [Quanteda](https://quanteda.io/) [@benoit2018] (an R Package)
+
         -   [Gephi](https://gephi.org/) [@bastian2009] (a software for networking)
 
 3.  03_Sentiment_Dictionaries.md
 
     -   Counting the sentiments in each file and in each piece of news
-    -   Counting the sentiments in each file and in each newspaper
+
+    -   Counting the sentiments in each file and in each newspaper\\
+
     -   The categories were predefined by @lima-lopes2020c .
 
 4.   04_Sentiment_plotting_tables.md
+
     -   Final tables with sentiments
 
 # References
-Please, refer to PDF for referentes 

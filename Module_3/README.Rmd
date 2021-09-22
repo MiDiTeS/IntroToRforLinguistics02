@@ -24,7 +24,7 @@ My general idea is make a full replication, which will take place in five differ
 
     -   Data scraping from the news media
 
-2.  02_Sentiment_Lexical_Network.md
+2.  02_Sentiment_pre_processing_network.md
 
     -   Network of words using:
 
