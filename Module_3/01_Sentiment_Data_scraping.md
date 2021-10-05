@@ -258,7 +258,7 @@ TS.df$doc_id <- paste0('TS', row.names(articles_TS.df))
 
 
 
-# Saving each file as a Data Frame
+# Saving each file from a Data Frame
 
 The following script help us to save each file in our local disk. 
 
