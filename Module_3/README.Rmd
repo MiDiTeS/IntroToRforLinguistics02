@@ -43,7 +43,7 @@ My general idea is make a full replication, which will take place in five differ
 
     -   Counting the sentiments in each file and in each piece of news
 
-    -   Counting the sentiments in each file and in each newspaper\\
+    -   Counting the sentiments in each file and in each newspaper
 
     -   The categories were predefined by @lima-lopes2020c .
 
