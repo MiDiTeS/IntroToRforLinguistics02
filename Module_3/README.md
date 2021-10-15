@@ -44,6 +44,6 @@ My general idea is make a full replication, which will take place in five differ
 
 4.   04_Sentiment_plotting_tables.md
 
-    -   Final tables with sentiments
+    - Final tables with sentiments
 
 # References
