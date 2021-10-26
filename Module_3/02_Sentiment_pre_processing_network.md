@@ -62,7 +62,7 @@ News.Corpus <- corpus(News.Corpus, text_field = 'Content')
 
 Please note:
 
-- The `field_command` tells `quanteda` what should be considered the text.
+- The `text_field` tells `quanteda` what should be considered the text.
 - The `doc_id` variable is now the formal identification of each text. 
 Our next step is to create a `token` variable for each corpus. A `token` is an index of words and their positions within each file. Please note that we are also doing some cleaning, deleting numbers, URLs and punctuation. If your research depends on this elements, please keep them. 
 
