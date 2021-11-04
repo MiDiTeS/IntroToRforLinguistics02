@@ -6,7 +6,6 @@ Rodrigo Esteves de Lima Lopes\
 [rll307@unicamp.br](mailto:rll307@unicamp.br)
 
 
-
 # Introduction
 
 This file will discuss specifically how to scrape data for replicating Lima-Lopes (2020). Please note that we will not make the whole corpus available here due to copyright. If you choose to reproduce this paper all articles have to be scraped by you. It is also important to observe that some articles might have been taken offline (actually by the time of this replication some already have). 
@@ -47,7 +46,7 @@ The package `rvest` aims to scrape (or harvest) data from web pages. To know the
 #reads the address form the web
 test <- read_html('https://www.telegraph.co.uk/news/uknews/immigration/10417222/Illegal-immigrants-cost-taxpayer-more-than-4000-a-head-each-year.html')
 ```
-It produces a list with the webpage and the codes which identify them in terms of tags and functions, but still very difficult for us to read. DEspite of that, we need to navigate to this code in order to find out were the information we need is. I would suggest to use a browser named [Firefox](https://www.mozilla.org/en-US/firefox/new/) which has an very interesting function: it easly shows the code of a webpage in a ways it gets a little simpler to read. In the pictures 1 and 2 (bellow) we can see the menu and an indication where the **title** of the article is. 
+It produces a list with the webpage and the codes which identify them in terms of tags and functions, but still very difficult for us to read. DEspite of that, we need to navigate to this code in order to find out were the information we need is. I would suggest to use a borwser named [Firefox](https://www.mozilla.org/en-US/firefox/new/) which has an very interesting function: it easly shows the code of a webpage in a ways it gets a little simpler to read. In the pictures 1 and 2 (bellow) we can see the menu and an indication where the **title** of the article is. 
 
  ![menu](images/menu.png)
  
@@ -76,69 +75,12 @@ I have prepared a *csv file with the address we are going to use, each file cont
 
 ```r
 articles_DS <- readr::read_csv("articles_DS.csv")
-```
-
-```
-## Rows: 50 Columns: 1
-```
-
-```
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (1): Address
-```
-
-```
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
 articles_DS <- as_vector(articles_DS)
 
 articles_TT <- readr::read_csv('articles_TT.csv')
-```
-
-```
-## Rows: 27 Columns: 1
-```
-
-```
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (1): Address
-```
-
-```
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
 articles_TT <- as_vector(articles_TT)
 
 articles_TS <- readr::read_csv("articles_TS.csv")
-```
-
-```
-## Rows: 21 Columns: 1
-```
-
-```
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (1): Address
-```
-
-```
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
-```
-
-```r
 articles_TS <- as_vector(articles_TS)
 ```
 
@@ -155,14 +97,14 @@ A general function for our newspaper scraping would be:
 
 
 ```r
-map_dfr(.x = article, # my vector with addresses
+map_dfr(.x = articles_TT, # my vector with addresses
         .f = function(x){ #the function, embraced by {}, creating a tibble
           tibble(Title = read_html(x) %>% #extracting the html code
                    html_nodes('h1') %>% #extracting the title
                    html_text(), #extracting the title's text
                  Content = read_html(x) %>% 
                    html_nodes("p") %>% 
-                   html_text())}) -> TT.df #extracting the content of the article and saving as tibble
+                   html_text())}) -> TT.df
 ```
 
 
@@ -170,7 +112,7 @@ Please note that with this format I will have to use the assignment `->` after t
 
 
 ```r
-TT.df <- article |> 
+TT.df <- articles_TT |> 
   map_dfr(.f = function(x){
     tibble(Title = read_html(x) %>%
              html_nodes('h1') %>%
@@ -196,7 +138,7 @@ map_dfr(.x = articles_DS,
                    html_text())}) -> DS.df
 ```
 
-If we have a look at `DS.df` we are going to notice that the code scraped all the paragraphs and idetified each of them with the title. 
+If we have a look at `DS.df` we are going to notice that the code scraped all the paragraphs and identified each of them with the title. 
 
 We now need to collapse it in a single line per article. One possibility would be the command
 
@@ -217,7 +159,7 @@ head(DS.df)
 
 ### The Telegraph
 
-We are going to follow the same path Please, have a look at the `html_nodes` parameter. For the aggregation of lines, I am suggesting a different approach (with dplyr/tidyverse), please, use the one you like best. 
+We are going to follow the same path Please, have a look at the `html_nodes` parameter. For the aggregation of lines, I am also suggesting a different approach (with dplyr/tidyverse), please, use the one you like best. 
 
 
 ```r
@@ -251,14 +193,14 @@ map_dfr(.x = articles_TS,
                  Content = read_html(x) %>%
                    html_nodes(xpath = "//div[@class='article__content']") %>%
                    html_text(),
-                 Site = "TheSun"
+                 site = "TheSun"
                  )}) -> TS.df
-TS.df$doc_id <- paste0('TS', row.names(articles_TS.df))
+TS.df$doc_id <- paste0('TS', row.names(articles_TS))
 ```
 
 
 
-# Saving each file from a Data Frame
+# Saving each file as a Data Frame
 
 The following script help us to save each file in our local disk. 
 
@@ -266,7 +208,7 @@ The following script help us to save each file in our local disk.
 ```r
 TSt.df <- data.frame(TS.df) #Necessary due to compatibility
 
-my.files <- as_vector(TSt.df$ID) # Making a vector for the indexing
+my.files <- as_vector(TSt.df$doc_id) # Making a vector for the indexing
 
 location <- list() # empty list
 

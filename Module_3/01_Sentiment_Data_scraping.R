@@ -69,9 +69,9 @@ map_dfr(.x = article,
                  Content = read_html(x) %>%
                    html_nodes(xpath = "//div[@class='article__content']") %>%
                    html_text(),
-                 Site = "TheSun"
+                 site = "TheSun"
           )}) -> TS.df
-TS.df$doc_id <- paste0('TS', row.names(articles_TS.df))
+TS.df$doc_id <- paste0('TS', row.names(TS.df))
 
 
 # For saving each file as a Data Frame ----------

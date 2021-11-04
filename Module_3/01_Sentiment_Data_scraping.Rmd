@@ -80,7 +80,7 @@ The problem with this approach is that if we have a lot of articles, it would be
 
 I have prepared a *csv file with the address we are going to use, each file contains the address of a single newspaper. It will help us to seepd up the scraping. We start by importing them:
 
-```{r importing}
+```{r importing, echo=TRUE, eval=FALSE}
 articles_DS <- readr::read_csv("articles_DS.csv")
 articles_DS <- as_vector(articles_DS)
 
@@ -103,21 +103,21 @@ In this post I will use the function `map_dfr()`, as it applies a function recur
 A general function for our newspaper scraping would be:
 
 ```{r ex2, eval=FALSE, echo=TRUE}
-map_dfr(.x = article, # my vector with addresses
+map_dfr(.x = articles_TT, # my vector with addresses
         .f = function(x){ #the function, embraced by {}, creating a tibble
           tibble(Title = read_html(x) %>% #extracting the html code
                    html_nodes('h1') %>% #extracting the title
                    html_text(), #extracting the title's text
                  Content = read_html(x) %>% 
                    html_nodes("p") %>% 
-                   html_text())}) -> TT.df #extracting the content of the article and saving as tibble
+                   html_text())}) -> TT.df
 ```
 
 
 Please note that with this format I will have to use the assignment `->` after the function mapped. Naturally I can simplify it using a pipe:
 
 ```{r ex3, eval=FALSE, echo=TRUE}
-TT.df <- article |> 
+TT.df <- articles_TT |> 
   map_dfr(.f = function(x){
     tibble(Title = read_html(x) %>%
              html_nodes('h1') %>%
@@ -142,7 +142,7 @@ map_dfr(.x = articles_DS,
                    html_text())}) -> DS.df
 ```
 
-If we have a look at `DS.df` we are going to notice that the code scraped all the paragraphs and idetified each of them with the title. 
+If we have a look at `DS.df` we are going to notice that the code scraped all the paragraphs and identified each of them with the title. 
 
 We now need to collapse it in a single line per article. One possibility would be the command
 
@@ -161,7 +161,7 @@ head(DS.df)
 
 ### The Telegraph
 
-We are going to follow the same path Please, have a look at the `html_nodes` parameter. For the aggregation of lines, I am suggesting a different approach (with dplyr/tidyverse), please, use the one you like best. 
+We are going to follow the same path Please, have a look at the `html_nodes` parameter. For the aggregation of lines, I am also suggesting a different approach (with dplyr/tidyverse), please, use the one you like best. 
 
 ```{r, src2, eval=FALSE, echo=TRUE}
 map_dfr(.x = articles_TT,
@@ -193,9 +193,9 @@ map_dfr(.x = articles_TS,
                  Content = read_html(x) %>%
                    html_nodes(xpath = "//div[@class='article__content']") %>%
                    html_text(),
-                 Site = "TheSun"
+                 site = "TheSun"
                  )}) -> TS.df
-TS.df$doc_id <- paste0('TS', row.names(articles_TS.df))
+TS.df$doc_id <- paste0('TS', row.names(articles_TS))
 ```
 
 
@@ -207,7 +207,7 @@ The following script help us to save each file in our local disk.
 ```{r, save, eval=FALSE, echo=TRUE}
 TSt.df <- data.frame(TS.df) #Necessary due to compatibility
 
-my.files <- as_vector(TSt.df$ID) # Making a vector for the indexing
+my.files <- as_vector(TSt.df$doc_id) # Making a vector for the indexing
 
 location <- list() # empty list
 
