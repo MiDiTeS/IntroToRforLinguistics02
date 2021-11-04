@@ -56,13 +56,13 @@ DS.Corpus <- corpus(DS.df, text_field = 'Content')
 TT.Corpus <- corpus(TT.df, text_field = 'Content')
 
 #General
-News.Corpus <- rbind(TT.df,TS.df, DS.df)
-News.Corpus <- corpus(News.Corpus, text_field = 'Content')
+News.df <- rbind(TT.df,TS.df, DS.df)
+News.Corpus <- corpus(News.df, text_field = 'Content')
 ```
 
 Please note:
 
-- The `text_field` tells `quanteda` what should be considered the text.
+- The `field_command` tells `quanteda` what should be considered the text.
 - The `doc_id` variable is now the formal identification of each text. 
 Our next step is to create a `token` variable for each corpus. A `token` is an index of words and their positions within each file. Please note that we are also doing some cleaning, deleting numbers, URLs and punctuation. If your research depends on this elements, please keep them. 
 
@@ -77,7 +77,7 @@ TS.tokens  <- tokens(TS.Corpus,
                     split_hyphens = FALSE,
                     include_docvars = TRUE,
                     padding = FALSE,
-                    verbose = quanteda_options("verbose")
+                    verbose = TRUE
                     )
 
 DS.tokens <- tokens(DS.Corpus,
@@ -89,7 +89,7 @@ DS.tokens <- tokens(DS.Corpus,
                     split_hyphens = FALSE,
                     include_docvars = TRUE,
                     padding = FALSE,
-                    verbose = quanteda_options("verbose")
+                    verbose = TRUE
                     )
 TT.tokens <- tokens(TT.Corpus,
                     what = "word",
@@ -100,7 +100,7 @@ TT.tokens <- tokens(TT.Corpus,
                     split_hyphens = FALSE,
                     include_docvars = TRUE,
                     padding = FALSE,
-                    verbose = quanteda_options("verbose")
+                    verbose = TRUE
                     ) 
 News.tokens <- News.Corpus |>
   tokens(what = "word",
@@ -111,7 +111,7 @@ News.tokens <- News.Corpus |>
          split_hyphens = FALSE,
          include_docvars = TRUE,
          padding = FALSE,
-         verbose = quanteda_options("verbose")
+         verbose = TRUE
   )
 ```
 
@@ -234,6 +234,13 @@ First, we will export our data in order to plot them using [Gephi](www.gephi.org
 
 
 ```r
+#as a matrix
+TS.CC <- as.matrix(TS.fcm.top)
+DS.CC <- as.matrix(DS.fcm.top)
+TT.CC <- as.matrix(TT.fcm.top)
+News.CC <- as.matrix(News.fcm.top)
+
+# Then exporting
 write.csv(TS.CC,"TS.csv")
 write.csv(DS.CC,"DS.csv")
 write.csv(TT.CC,"TT.csv")

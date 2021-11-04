@@ -22,42 +22,16 @@ DS.Corpus <- corpus(DS.df, text_field = 'Content')
 TT.Corpus <- corpus(TT.df, text_field = 'Content')
 
 #General
-News.Corpus <- rbind(TT.df,TS.df, DS.df)
-News.Corpus <- corpus(News.Corpus, text_field = 'Content')
+News.df <- rbind(TT.df,TS.df, DS.df)
+News.Corpus <- corpus(News.df, text_field = 'Content')
 
 # Tokens for each and general----------
-# 
-TS.tokens <- tokens(TS.Corpus,
-                    what = "word",
-                    remove_punct = TRUE,
-                    remove_symbols = TRUE,
-                    remove_numbers = TRUE,
-                    remove_url = TRUE,
-                    split_hyphens = FALSE,
-                    include_docvars = TRUE,
-                    padding = FALSE,
-                    verbose = quanteda_options("verbose")
-                    )
-
+## Lemmatised
 TS.tokens <- tokens_remove(TS.tokens, c(stopwords("english"),My.Stopwords)) 
 TS.tokens <- tokens_replace(TS.tokens, 
                             pattern = lexicon::hash_lemmas$token,
                             replacement = lexicon::hash_lemmas$lemma) |>
   tokens_tolower()
-TS.dfm <- dfm(TS.tokens)
-TS.top <- names(topfeatures(TS.dfm, 150))
-
-DS.tokens <- tokens(DS.Corpus,
-                    what = "word",
-                    remove_punct = TRUE,
-                    remove_symbols = TRUE,
-                    remove_numbers = TRUE,
-                    remove_url = TRUE,
-                    split_hyphens = FALSE,
-                    include_docvars = TRUE,
-                    padding = FALSE,
-                    verbose = quanteda_options("verbose")
-                    )
 
 DS.tokens <- tokens_remove(DS.tokens, c(stopwords("english"), 
                                         My.Stopwords)) 
@@ -66,48 +40,32 @@ DS.tokens <- tokens_replace(DS.tokens,
                             replacement = lexicon::hash_lemmas$lemma) |>
   tokens_tolower()
 
-DS.dfm <- dfm(DS.tokens)
-DS.top <- names(topfeatures(DS.dfm, 150))
-
-TT.tokens <- tokens(TT.Corpus,
-                    what = "word",
-                    remove_punct = TRUE,
-                    remove_symbols = TRUE,
-                    remove_numbers = TRUE,
-                    remove_url = TRUE,
-                    split_hyphens = FALSE,
-                    include_docvars = TRUE,
-                    padding = FALSE,
-                    verbose = quanteda_options("verbose")
-                    ) 
 TT.tokens <- tokens_remove(TT.tokens, c(stopwords("english"),My.Stopwords)) 
 TT.tokens <- tokens_replace(TT.tokens, 
                             pattern = lexicon::hash_lemmas$token,
                             replacement = lexicon::hash_lemmas$lemma) |>
   tokens_tolower()
-TT.dfm <- dfm(DS.tokens)
-TT.top <- names(topfeatures(DS.dfm, 150))
 
-
-News.tokens <- News.Corpus |>
-  tokens(what = "word",
-         remove_punct = TRUE,
-         remove_symbols = TRUE,
-         remove_numbers = TRUE,
-         remove_url = TRUE,
-         split_hyphens = FALSE,
-         include_docvars = TRUE,
-         padding = FALSE,
-         verbose = quanteda_options("verbose")
-  )
 
 News.tokens <- tokens_remove(News.tokens, c(stopwords("english"),My.Stopwords)) 
 News.tokens <- tokens_replace(News.tokens, 
-                            pattern = lexicon::hash_lemmas$token,
-                            replacement = lexicon::hash_lemmas$lemma) |>
+                              pattern = lexicon::hash_lemmas$token,
+                              replacement = lexicon::hash_lemmas$lemma) |>
   tokens_tolower()
+
+## DFMs----------
+## 
 news.dfm <- dfm(News.tokens)
 news.top <- names(topfeatures(news.dfm, 150))
+
+TT.dfm <- dfm(DS.tokens)
+TT.top <- names(topfeatures(DS.dfm, 150))
+
+DS.dfm <- dfm(DS.tokens)
+DS.top <- names(topfeatures(DS.dfm, 150))
+
+TS.dfm <- dfm(TS.tokens)
+TS.top <- names(topfeatures(TS.dfm, 150))
 
 # FCMs --------------------------------------------------------------------
 TS.fcm <- fcm(
@@ -155,7 +113,7 @@ News.fcm <- fcm(
   tri = TRUE
 )
 
-News.fcm.top <- fcm_select(News.fcm , pattern = news.top)
+News.fcm.top <- fcm_select(News.fcm, pattern = news.top)
 
 # Exporting for external network analysis ---------------------------------
 
