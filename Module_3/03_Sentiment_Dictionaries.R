@@ -37,7 +37,14 @@ NP.2 <- c("control", "borders", "border", "wave", "waves", "surge", "increase", 
   unique()
 
 # The unique command helps to keep the vectors tidy
-# 
+
+# Creating Dictionaries ---------------------------------------------------
+# First a list with our vectors
+dic.list <- list(adj.1, adj.2, adj.3, MC.1, MC.2, MC.3, vp, EM, NP.1, NP.2)
+
+# Then we name such a list
+names(dic.list) <- c("adj.1", "adj.2", "adj.3", "MC.1", "MC.2", "MC.3", "vp", "EM", "NP.1", "NP.2")
+dic.brexit <- dictionary(dic.list)
 
 # Creating the corpus -----------------------------------------------------
 # For this approach, we need a non-lemmatised set of texts, so we will recreate the corpus, resuing our scraped data. 
@@ -48,8 +55,8 @@ DS.Corpus <- corpus(DS.df, text_field = 'Content')
 TT.Corpus <- corpus(TT.df, text_field = 'Content')
 
 #General
-News.Corpus <- rbind(TT.df,TS.df, DS.df)
-News.Corpus <- corpus(News.Corpus, text_field = 'Content')
+News.df <- rbind(TT.df,TS.df, DS.df)
+News.Corpus <- corpus(News.df, text_field = 'Content')
 
 #tokens
 TS.tokens  <- tokens(TS.Corpus,
@@ -97,15 +104,6 @@ News.tokens <- News.Corpus |>
          padding = FALSE,
          verbose = quanteda_options("verbose")
   )
-
-
-# Creating Dictionaries ---------------------------------------------------
-# First a list with our vectors
-dic.list <- list(adj.1, adj.2, adj.3, MC.1, MC.2, MC.3, vp, EM, NP.1, NP.2)
-
-# Then we name such a list
-names(dic.list) <- c("adj.1", "adj.2", "adj.3", "MC.1", "MC.2", "MC.3", "vp", "EM", "NP.1", "NP.2")
-dic.brexit <- dictionary(dic.list)
 
 # Counting ----------------------------------------------------------------
 # Now let us do the actual counting
