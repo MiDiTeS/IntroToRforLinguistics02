@@ -1,0 +1,207 @@
+---
+title: "Sentiment analysis and LSF"
+subtitle: "Replication of Lima-Lopes (2020) - Part 4"
+author: "| Rodrigo Esteves de Lima-Lopes \n| State University of Campinas \n| rll307@unicamp.br\n"
+output: 
+  pdf_document:
+    number_sections: yes
+    toc: yes
+    keep_md: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(psych)
+library(ggradar)
+library(scales)
+load("/Users/rodrigolopes/OneDrive/Profissional/Pedagogico/UNICAMP/disciplinas/pos/R/lp192_2021/rep_mod_4.RData")
+```
+
+# Introduction
+
+In this section we are going to:
+
+1.  Run the factor analysis and observe how each feature in the dictionary co-occurs
+2.  Analyse this co-occurrence in terms of their features and name them
+3.  Create correlation graphics.
+4.  Analyse how each news paper performs in terms of the dimensions we have found.
+
+# Packages
+
+For this script we are going to need three packages:
+
+```{r packages, eval=FALSE}
+library(psych)
+library(ggradar)
+library(scales)
+library(ggcorrplot)
+```
+
+-   `psych` : for statistical analysis
+-   `ggradar and ggcorrplot`: for plotting
+-   `scales`: for scaling the the samples
+
+Three packages, `ggcorrplot`, `psych` and `scales` might be installed using ordinary `Rstudio` interface. However, `ggradar` needs a special command, since it is not provided by [CRAN](https://cran.r-project.org/).
+
+```{r install,eval=FALSE}
+devtools::install_github("ricardo-bion/ggradar", 
+                         dependencies = TRUE)
+```
+
+# The analysis
+
+Our first step is to select which columns of `news.Cal` we are going to use. Please, note we are going to use the same data as we have in the last script.
+
+```{r, selecting, eval=FALSE}
+News.Cal <- News.Cal[,2:11] |> # selects all columns but docs_id
+  as.matrix() # makes it a matrix
+```
+
+Now let us have a look at it:
+
+```{r, head1}
+News.Cal |>
+  head()
+```
+
+## Finding the correlation
+
+At this point we are going to find which stratetigies correlates to another
+
+```{r, correlation, eval=FALSE}
+correlation <- cor(News.Cal)
+```
+
+Now, let us have a look at it
+
+```{r head2}
+correlation |>
+  head()
+```
+
+### Plotting
+
+Now, it is possible to make a plot out of it:
+
+```{r pot1, eval=FALSE}
+ggcorrplot::ggcorrplot(correlation, 
+                       method = "circle", 
+                       type = "upper", 
+                       outline.col = "darkgrey", 
+                       hc.order = TRUE,
+                       insig = "blank",
+                       show.diag=FALSE, 
+                       sig.level=0.05,
+                       legend.title = "Corr.", 
+                       ggtheme=ggplot2::theme_minimal())
+```
+
+The result is:
+
+![Correlation](images/corr.png)
+
+## Creating the Factors and analysing the dimensions.
+
+The facto analysis is simple, we just need one command:
+
+```{r factor, eval=FALSE}
+factors <- factanal(News.Cal, 4, rotation = "promax")
+```
+
+Now we save the element `loadings` for our inspection
+
+```{r loadings, eval=FALSE}
+factor.final <- factors[["loadings"]]
+```
+
+Now let us have a look at it:
+
+```{r head3}
+factor.final
+```
+
+### Factor per newspaper
+
+Now we are going to analyse how each journal instantiates meanings in the four dimensions.
+
+Our first step is to apply factor analysis using `principal` a command from `psych`. Our focus will be each file individually.
+
+```{r, princiapal, echo= TRUE, eval= FALSE}
+fit2 <- principal(News.Cal, 
+                  nfactors = 4, rotate = "cluster")
+```
+
+Our next step is to save the results that interest us the most.
+
+```{r save, echo= TRUE, eval= FALSE}
+
+scores.files <- as.data.frame(fit2[["scores"]])
+
+```
+
+The final step is to identify the files according to the orign
+
+```{r orign, echo= TRUE, eval= FALSE}
+
+newspapers <- data.frame(newspapers = c(rep('TT', 27),
+                                        rep("TS",21),
+                                        rep("DS",50)
+))
+
+scores.files <- cbind(newspapers,scores.files)
+```
+
+Now let us have a look at it:
+
+```{r head 3}
+
+scores.files |>
+  head()
+```
+
+Although we are not going to explore it, this data frame would be a good source to analyse how and why each piece of news behaves individually.
+
+Our almost final steps are:
+
+1.  Save each newspaper set of articles, in order to
+2.  Take the means of each newspaper regarding each dimensio
+3.  Identify the newspapers
+4.  Rescale for plotting
+5.  Save all together in order to plot them
+
+```{r, pre-plot, echo=TRUE,eval=FALSE}
+
+DS.av <- subset(scores.files, newspapers == "DS", -newspapers)
+TT.av <- subset(scores.files, newspapers == "TT", -newspapers)
+TS.av <- subset(scores.files, newspapers == "TS", -newspapers)
+
+DS <- t(colMeans(DS.av, na.rm = TRUE))
+TT <- t(colMeans(TT.av, na.rm = TRUE))
+TS <- t(colMeans(TS.av, na.rm = TRUE))
+
+newspaper <- c("Daily Star", "The Sun", "Telegraph")
+
+general.means <- as.data.frame(rbind(DS,TT,TS), row.names = newspaper,
+                               col.names = dimentions)
+colnames(general.means) <- dimentions
+
+radar1 <- general.means %>% 
+  as_tibble(rownames = "newspaper") %>% 
+  mutate_at(vars(-newspaper), rescale)
+```
+
+Let us have a look at it:
+
+```{r view}
+radar1
+```
+
+Finally we plot it
+
+```{r final22, echo=TRUE,eval=FALSE}
+ggradar(radar1)
+```
+
+The final result is:
+
+![](images/radar.png "Radar")

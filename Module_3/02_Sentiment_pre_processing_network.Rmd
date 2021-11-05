@@ -14,6 +14,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(quanteda)
 library(quanteda.textplots)
 library(quanteda.textstats)
+library(psych)
+library(ggradar)
+library(scales)
 load("/Volumes/GoogleDrive/My Drive/Profissional/Pedagogico/UNICAMP/disciplinas/pos/R/lp192_2021/rep_mod_3.RData")
 ```
 
