@@ -25,6 +25,8 @@ library(psych)
 library(ggradar)
 library(scales)
 library(ggcorrplot)
+library(quanteda)
+library(dplyr)
 ```
 
 -   `psych` : for statistical analysis
@@ -109,8 +111,7 @@ Now, it is possible to make a plot out of it:
 ```r
 ggcorrplot::ggcorrplot(correlation, 
                        method = "circle", 
-                       type = "upper", 
-                       outline.col = "darkgrey", 
+                       outline.color = "darkgrey", 
                        hc.order = TRUE,
                        insig = "blank",
                        show.diag=FALSE, 
@@ -237,10 +238,11 @@ TT <- t(colMeans(TT.av, na.rm = TRUE))
 TS <- t(colMeans(TS.av, na.rm = TRUE))
 
 newspaper <- c("Daily Star", "The Sun", "Telegraph")
+dimensions <- c("D1", "D2", "D3"
 
 general.means <- as.data.frame(rbind(DS,TT,TS), row.names = newspaper,
                                col.names = dimentions)
-colnames(general.means) <- dimentions
+colnames(general.means) <- dimensions
 
 radar1 <- general.means %>% 
   as_tibble(rownames = "newspaper") %>% 

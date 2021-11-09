@@ -23,7 +23,7 @@ factor.final <- factors[["loadings"]]
 correlation <- cor(News.Cal)
 
 #Plotting
-ggcorrplot::ggcorrplot(correlation, method = "circle", type = "upper", outline.col = "darkgrey", hc.order = TRUE,insig = "blank",show.diag=FALSE, sig.level=0.05,legend.title = "Corr.", ggtheme=ggplot2::theme_minimal())
+ggcorrplot::ggcorrplot(correlation, method = "circle", outline.color = "darkgrey", hc.order = TRUE,insig = "blank",show.diag = FALSE, sig.level = 0.05,legend.title = "Corr.", ggtheme = ggplot2::theme_minimal())
 
 # Functions per newspaper -------------------------------------------------
 
@@ -53,7 +53,7 @@ dimensions <- c("D1", "D2", "D3","D4")
 
 general.means <- as.data.frame(rbind(DS,TT,TS), row.names = newspaper)
 
-colnames(general.means) <- dimentions
+colnames(general.means) <- dimensions
 
 #devtools::install_github("ricardo-bion/ggradar", 
 #                         dependencies = TRUE)

@@ -115,7 +115,7 @@ TS.tokens  <- tokens(TS.Corpus,
                      split_hyphens = FALSE,
                      include_docvars = TRUE,
                      padding = FALSE,
-                     verbose = quanteda_options("verbose")
+                     verbose = TRUE
 )
 
 DS.tokens <- tokens(DS.Corpus,
@@ -127,7 +127,7 @@ DS.tokens <- tokens(DS.Corpus,
                     split_hyphens = FALSE,
                     include_docvars = TRUE,
                     padding = FALSE,
-                    verbose = quanteda_options("verbose")
+                    verbose = TRUE
 )
 TT.tokens <- tokens(TT.Corpus,
                     what = "word",
@@ -138,7 +138,7 @@ TT.tokens <- tokens(TT.Corpus,
                     split_hyphens = FALSE,
                     include_docvars = TRUE,
                     padding = FALSE,
-                    verbose = quanteda_options("verbose")
+                    verbose = TRUE
 ) 
 News.tokens <- News.Corpus |>
   tokens(what = "word",
@@ -149,7 +149,7 @@ News.tokens <- News.Corpus |>
          split_hyphens = FALSE,
          include_docvars = TRUE,
          padding = FALSE,
-         verbose = quanteda_options("verbose")
+         verbose = TRUE
   )
 ```
 
