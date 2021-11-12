@@ -221,8 +221,8 @@ Although we are not going to explore it, this data frame would be a good source 
 
 Our almost final steps are:
 
-1.  Save each newspaper set of articles, in order to
-2.  Take the means of each newspaper regarding each dimensio
+1.  Save each newspaper set of articles, in order to:
+2.  Take the means of each newspaper regarding each dimension
 3.  Identify the newspapers
 4.  Rescale for plotting
 5.  Save all together in order to plot them
