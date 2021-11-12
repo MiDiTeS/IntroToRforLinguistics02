@@ -238,7 +238,7 @@ TT <- t(colMeans(TT.av, na.rm = TRUE))
 TS <- t(colMeans(TS.av, na.rm = TRUE))
 
 newspaper <- c("Daily Star", "The Sun", "Telegraph")
-dimensions <- c("D1", "D2", "D3"
+dimensions <- c("D1", "D2", "D3","D4")
 
 general.means <- as.data.frame(rbind(DS,TT,TS), row.names = newspaper,
                                col.names = dimentions)
