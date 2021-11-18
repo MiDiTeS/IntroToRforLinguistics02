@@ -87,10 +87,10 @@ CandPart <- CandPart |>
 CandPart <- CandPart[order(CandPart$ANO_ELEICAO),]
 
 
-ggplot(CandPart, aes(y = Freq, x=SG_PARTIDO, fill=factor(ANO_ELEICAO))) + 
+ggplot(CandPart, aes(y = Freq, x=SG_PARTIDO, fill = factor(ANO_ELEICAO))) + 
   geom_bar(stat = "identity") +
   scale_y_continuous("Númeo de Candidatos") + 
-  scale_fill_manual("Ano da Eleição", values = ("blue","red"), labels=c("2014","2018")) +
+  scale_fill_manual("Ano da Eleição", values = (c("blue","red")), labels=c('2018',"2014")) +
   theme(axis.text.x = element_text(angle = 60,hjust = 1)) 
 
 # Estados e partidos ------------------------------------------------------
@@ -133,7 +133,7 @@ ggplot(data = aptos, aes(x = SG_UF,
   theme(axis.text.x = element_text(angle = 60,hjust = 1))
 
 ## coligações
-Criando uma rede
+#Criando uma rede
 
 coligacao <- candidatos.gov |>
   subset(TP_AGREMIACAO == "COLIGAÇÃO") |>
@@ -143,6 +143,7 @@ colnames(coligacao) <- "Node"
 
 coligacao <- as.data.frame(apply(coligacao,2, str_remove_all, " ")) 
 
+colnames(coligacao) <- "Node"
 c2 <- coligacao |> 
   tidyr::separate(Node, paste0('Node', c(1:21)), sep = '/', remove = T)
 
@@ -165,7 +166,7 @@ nodes <- data.frame(label = nodes) |>
   unique() 
 
 # Classificando os nodes
-rownames(nodes) <- 1:39
+rownames(nodes) <- nodes$label
 
 nodes <- nodes |> 
   mutate(DIRECAO = case_when(
@@ -182,7 +183,7 @@ nodes <- nodes |>
   label == 'PT do B' ~ "Centro-direita",
   label == 'PTdoB' ~ "Centro-direita",
   label == 'PTDOB' ~ "Centro-direita",
-  label == 'PCDOB' ~ "Centro-direita",
+  label == 'PCDOB' ~ "Esquerda",
   label == 'AVANTE' ~ "Centro-direita",
   label == 'PC do B' ~ "Esquerda",
   label == 'PCO' ~ "Esquerda",
@@ -229,7 +230,7 @@ partidos |>
 
 ## Exporting
 colnames(edges) <- c("Source","Target")
-
+nodes$ID <- nodes$label
 write.csv(nodes, "nodes.csv", row.names = FALSE)
 write.csv(edges, "edges.csv", row.names = FALSE)
 

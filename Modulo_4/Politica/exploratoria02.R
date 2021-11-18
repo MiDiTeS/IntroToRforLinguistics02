@@ -10,6 +10,7 @@ library(quanteda.textmodels)
 library(quanteda.textplots)
 library(quanteda.textstats)
 library(seededlda)
+
 ######## Loading data #########
 candidatos.gov <- readRDS("candidatos_unificado.RDS")
 
@@ -17,7 +18,7 @@ candidatos.gov <- readRDS("candidatos_unificado.RDS")
 ## Selecting: some data and meta data
 
 candidatos.selec <- 
-  candidatos.gov[,c("ANO_ELEICAO", "SG_UF","SG_PARTIDO" , 
+  candidatos.gov[,c("ANO_ELEICAO", "SG_UF","SG_PARTIDO", 
                     "DS_SITUACAO_CANDIDATURA",
                     "texto_disponivel", "texto",
                     "TP_AGREMIACAO")] |> as.data.frame()
@@ -53,11 +54,12 @@ tokens.cand <- tokens(candidatos.c,
                             remove_punct = TRUE,
                             remove_symbols = TRUE,
                             remove_numbers = TRUE,
-                            remove_url = TRUE, split_hyphens = FALSE, 
+                            remove_url = TRUE,
+                            split_hyphens = FALSE, 
                             include_docvars = TRUE, 
                             padding = FALSE, 
                             verbose = TRUE )
-dfm.cand <- dfm(tokens.cand, 
+dfm.cand <- dfm(tokens.cand,
                 remove = stopwords("portuguese"), 
                 verbose = TRUE)
 
@@ -65,6 +67,7 @@ dfm.cand <- dfm(tokens.cand,
 ###### Diversidade Lexical
 ###### Escolhendo alguns partidos 
 PT <- corpus_subset(candidatos.c, SG_PARTIDO == "PT")
+
 tokens.PT <- tokens(PT, 
                       what = "word",
                       remove_punct = TRUE,
@@ -81,6 +84,7 @@ PT.DFM <- dfm(tokens.PT,
 
 
 densidade.PT <- textstat_lexdiv(PT.DFM)
+
 View(densidade.PT)
 
 ##### plotando
@@ -98,13 +102,16 @@ plot(clust, xlab = "Distance", ylab = NULL)
 
 # expressões mais comuns 
 col.pt <- textstat_collocations(tokens.PT, min_count = 10, tolower = FALSE)
-head(col.pt, 20)
+View(col.pt)
 
 # Modelação de tópicos
 
 PT.DFM.2 <- dfm(tokens.PT) %>% 
-  dfm_trim(min_termfreq = 0.8, termfreq_type = "quantile",
-           max_docfreq = 0.1, docfreq_type = "prop")
-modelo <- textmodel_lda(PT.DFM.2, k = 10)
+  dfm_trim(min_termfreq = 0.9, termfreq_type = "quantile",
+           max_docfreq = 0.3, docfreq_type = "prop")
+
+modelo <- textmodel_lda(PSL.DFM, k = 5)
 
 terms(modelo, 15)
+
+kwic(tokens.PT, pattern = "baiano", valuetype = "glob", window = 5) |> View()
