@@ -75,7 +75,7 @@ topicos <- c("A","B","C","D")
 
 Videos.Topic <- topicos[apply(fit$theta, 1, which.max)]
 
-df_topicos <- Blogs  %>% 
+df_topicos <- Blogs  |> 
   mutate(best_prob = prob,
          topico = Videos.Topic)
 
@@ -85,9 +85,9 @@ df_topicos <- Blogs  %>%
 
 colour <- "bisque4"
 
-df_topicos  %>% 
-  count(topico) %>% 
-  mutate(topico = forcats::fct_reorder(topico, n)) %>% 
+df_topicos  |> 
+  count(topico) |> 
+  mutate(topico = forcats::fct_reorder(topico, n)) |> 
   ggplot(aes(x = topico, y = n)) + 
   geom_col(fill = colour) +
   theme_minimal() + 
