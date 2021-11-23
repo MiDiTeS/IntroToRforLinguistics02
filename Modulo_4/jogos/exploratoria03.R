@@ -98,6 +98,8 @@ df_topicos  |>
 df_topicos$site <- as.factor(df_topicos$site)
 df_topicos$topico <- as.factor(df_topicos$topico)
 
+cruzamento <- xtabs(~ site + topico, df_topicos)
+
 xtabs(~ site + topico, df_topicos) |> 
   as.data.frame() |>
   ggplot(aes(site, topico)) + 
