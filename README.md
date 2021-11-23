@@ -12,7 +12,7 @@ Initially, it was thought as a set of lessons to my graduate students at [IEL](h
 
 ## What it is going to cover
 
-This module is going to cover some tools for corpus and discourse analysis using **R**'s language and packages. It is not intended to be a very advanced set of tutorials, since it is mostly introducing the tools for the community. 
+This course covers some tools for corpus and discourse analysis using **R**'s language and packages. It is not intended to be a very advanced set of tutorials, since it is mostly introducing the tools for the community. 
 
 ## Modules
 
