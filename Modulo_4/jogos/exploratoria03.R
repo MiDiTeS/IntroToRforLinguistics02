@@ -53,7 +53,7 @@ storage <-
 plot.searchK(storage)
 
 fit <- stm::stm(documents = out$documents,
-                vocab = out$vocab, data = out$meta,  K = 4,
+                vocab = out$vocab, data = out$meta,  K = 3,
                 max.em.its = 75, init.type = "LDA",
                 verbose = TRUE)
 
@@ -61,8 +61,12 @@ plot.STM(fit, type = "labels",labeltype = "prob")
 plot.STM(fit, type = "labels",labeltype = "frex")
 plot.STM(fit, type = "labels",labeltype = "lift")
 plot.STM(fit, type = "labels",labeltype = "score")
-plot.STM(fit, type = "perspectives",topics = c(1,2))
+
+plot.STM(fit, type = "perspectives",topics = c(2,3))
+
+
 plot.STM(fit, type = "hist")
+
 stm::labelTopics(fit)
 View(fit$theta)
 
@@ -71,7 +75,7 @@ prob <- apply(fit$theta, 1, max)
 
 # Criando um nome para os tópicos
 
-topicos <- c("A","B","C","D")
+topicos <- c("Geral","Experiencia","Elementos")
 
 Videos.Topic <- topicos[apply(fit$theta, 1, which.max)]
 

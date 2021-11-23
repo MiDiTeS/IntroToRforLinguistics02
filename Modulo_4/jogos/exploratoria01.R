@@ -19,22 +19,22 @@ library(tidyr)
 # Criando lista de palavras AR
 
 AR.list  <- data.frame(text = AR.df$Content, 
-                   stringsAsFactors = F) %>%
-  unnest_tokens(word, text) %>%
+                   stringsAsFactors = F) |>
+  unnest_tokens(word, text) |>
   mutate(blog = "AR")
 
 # Lista de palavras 
 # ARD
 GG.list <- data.frame(text = GG.df$Content,
-                   stringsAsFactors = F) %>%
-  unnest_tokens(word, text) %>%
+                   stringsAsFactors = F) |>
+  unnest_tokens(word, text) |>
 mutate(blog = "GG")
 
 # Lista de palavras 
 # GV
 GV.list <- data.frame(text = GV.df$Content,
-                   stringsAsFactors = F) %>%
-  unnest_tokens(word, text) %>%
+                   stringsAsFactors = F) |>
+  unnest_tokens(word, text) |>
 mutate(blog = "GV")
 
 freq.games <- bind_rows(mutate(GV.list, blog = "GV"),
@@ -46,9 +46,10 @@ freq.games <- bind_rows(mutate(GV.list, blog = "GV"),
   mutate(proportion = (n / sum(n))*100)  |>
   select(-n)  |>
   spread(blog, proportion)
-freq.games <- freq.games[-(1:2),]
 
-# Juntando e observando a mais importante
+freq.games <- freq.games[-1,]
+
+# Juntando e observando as mais importante
 games.df <- rbind(GG.df,GV.df,AR.df) 
 
 games.df$site <- as.factor(games.df$site)
@@ -108,19 +109,19 @@ AR.count <- games.juntos |>
 
 GV.count <- games.juntos |>
   subset(site == "Gamer View") |>
-  count(bigram, sort = TRUE) |>
+  count(bigram, sort = TRUE) |> 
   separate(bigram, c("word1", "word2"), sep = " ")
 
 GG.graph <- GG.count |>
-  filter(n > 5) |>
+  filter(n > 3) |>
   igraph::graph_from_data_frame()
 
 GV.graph <- GV.count |>
-  filter(n > 5) |>
+  filter(n > 3) |>
   igraph::graph_from_data_frame()
 
 AR.graph <- AR.count |>
-  filter(n > 5) |>
+  filter(n > 3) |>
   igraph::graph_from_data_frame()
 
 ggraph::ggraph(GG.graph, layout = "fr") +
