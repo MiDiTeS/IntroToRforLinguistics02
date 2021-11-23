@@ -4,7 +4,7 @@
 #By: rll307
 #File: Exploratoria 01
 
-
+writeLines("It is part of my CNPq-funded project and seeks to make corpus tools and R accessible. If you have any doubts or wish to make any research contact please send me an email. Rodrigo de Lima-Lopes rll307@unicamp.br")
 # Pacotes -----------------------------------------------------------------
 library(dplyr)
 library(tables)

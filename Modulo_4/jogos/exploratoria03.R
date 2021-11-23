@@ -1,3 +1,5 @@
+writeLines("It is part of my CNPq-funded project and seeks to make corpus tools and R accessible. If you have any doubts or wish to make any research contact please send me an email. Rodrigo de Lima-Lopes rll307@unicamp.br")
+
 # Introducao --------------------------------------------------------------
 #Project: Blogs de resenha game
 #Objective: Análise exploratória 
