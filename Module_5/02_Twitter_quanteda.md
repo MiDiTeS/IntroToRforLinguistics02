@@ -1,4 +1,4 @@
-# "Quanteda and Twitter"
+# Quanteda and Twitter
 Rodrigo Esteves de Lima Lopes \
 *Campinas State University* \
 [rll307@unicamp.br](mailto:rll307@unicamp.br)

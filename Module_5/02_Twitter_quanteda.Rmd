@@ -28,7 +28,7 @@ library(rtweet)
 
 ## Data
 
-We are going to use the same data we have used in the previous tutorials
+We are going to use the same data we have used in the previous tutorials.
 
 # Making some comparissions
 
