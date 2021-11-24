@@ -65,7 +65,7 @@ Now to load this tweets we will need the following command:
 
 
 `````r
-SP.tweets <- parse_stream("t01.json")
+br.tweets <- parse_stream("t01.json")
 ````
 
 If we look at this file, there is a lot of possible variables to explore, over 90 columns with a lot of information regarding our tweets. 
