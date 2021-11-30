@@ -85,7 +85,6 @@ dfm.all <- dfm(tokens.all,
                verbose = TRUE) |> 
   dfm_remove(stopwords("portuguese"),
              verbose = TRUE)
-dfm.all <- dfm_group(dfm.all, groups = "screen_name")
 
 textstat_keyness(dfm.all, target = "LulaOficial") |> 
   textplot_keyness(n= 25)
