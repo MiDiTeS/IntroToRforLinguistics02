@@ -25,7 +25,9 @@ First we need to save our texts as vectors
 
 ```r
 LI <- subset(presidentes, screen_name == "LulaOficial")
+LI.t <- LI$text
 JB <- subset(presidentes, screen_name != "LulaOficial")
+JB.t <- JB$text
 ```
 
 Kwic in the terminal
