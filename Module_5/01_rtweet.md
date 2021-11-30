@@ -55,7 +55,7 @@ Let us make some search using `stream_tweets`:
 
 
 ```r
-br.T1 <- stream_tweets('#Grammy', 
+stream_tweets('#Grammy', 
                        timeout = 60, #in seconds
                        file_name='t01', # it saves a file, not a variable
                        parse=FALSE)
