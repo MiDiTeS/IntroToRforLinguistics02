@@ -25,7 +25,7 @@ tag.fcm.LI <- fcm(tag.LI)
 top.plot.LI <- fcm_select(tag.fcm.LI, pattern = toptag.LI)
 textplot_network(top.plot.LI, 
                  min_freq = 0.1, 
-                 edge_alpha = 0.8, 
+                 edge_alpha = 0.6, 
                  edge_size = 5,
                  edge_color = "red")
 
@@ -45,15 +45,15 @@ textplot_network(top.plot.JB,
 
 # Users -------------------------------------------------------------------
 #Lula
-user.LI <- dfm_select(LI.dfm, pattern = ("@*"))
-topuser.LI <- names(topfeatures(user.LI, 50))
-user.fcm.LI <- fcm(user.LI)
-user.plot.LI <- fcm_select(user.fcm.LI, pattern = topuser.LI)
-textplot_network(user.plot.LI, 
-                 min_freq = 0.1, 
-                 edge_alpha = 0.8, 
-                 edge_size = 5,
-                 edge_color = "red")
+  user.LI <- dfm_select(LI.dfm, pattern = ("@*"))
+  topuser.LI <- names(topfeatures(user.LI, 50))
+  user.fcm.LI <- fcm(user.LI)
+  user.plot.LI <- fcm_select(user.fcm.LI, pattern = topuser.LI)
+  textplot_network(user.plot.LI, 
+                   min_freq = 0.1, 
+                   edge_alpha = 0.8, 
+                   edge_size = 5,
+                   edge_color = "red")
 
 
 user.JB <- dfm_select(JB.dfm, pattern = ("@*"))
