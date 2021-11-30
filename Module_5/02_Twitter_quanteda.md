@@ -56,16 +56,6 @@ LI.lower <- char_tolower(LI.t)
 JB.lower <- char_tolower(JB.t)
 ```
 
-Now, we create a lower character vector
-
-
-```r
-boulos.word.v <- tokens(boulos.lower.v, 
-                        remove_punct = TRUE)
-covas.word.v <- tokens(covas.lower.v, 
-                       remove_punct = TRUE)
-```
-
 So now, we have our second DFM:
 
 
