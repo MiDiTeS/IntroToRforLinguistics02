@@ -76,7 +76,7 @@ If we look at this file, there is a lot of possible variables to explore, over 9
 - **Disadvantages**: if you do not have a researcher or premium account, number of instances might be limited. 
 
 Due to time, we will search for some tweets only:
-`````
+
 
 ```r
 BR.t2 <- search_tweets(
