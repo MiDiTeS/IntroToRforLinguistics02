@@ -16,7 +16,7 @@ library(magrittr)
 library(formattable)
 library(purrr)
 options(scipen = 999)
-
+library(stringr)
 
 # Creating the base command -----------------------------------------------
 # Defining the fields
